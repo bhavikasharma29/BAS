@@ -94,19 +94,19 @@
             <h4>Security Questions</h4>
 
             <label for="security_q1">1. What is your childhood nickname?</label>
-            <input type="text" id="security_q1" name="security_q1" required>
+            <input type="text" id="security_a1" name="security_a1" required>
             
             <label for="security_q2">2. What was the name of your first pet?</label>
-            <input type="text" id="security_q2" name="security_q2" required>
+            <input type="text" id="security_a2" name="security_a2" required>
             
             <label for="security_q3">3. What is your dream travel destination?</label>
-            <input type="text" id="security_q3" name="security_q3" required>
+            <input type="text" id="security_a3" name="security_a3" required>
             
             <label for="security_q4">4. What is the name of the city where you were born?</label>
-            <input type="text" id="security_q4" name="security_q4" required>
+            <input type="text" id="security_a4" name="security_a4" required>
             
             <label for="security_q5">5. What was the name of your first school?</label>
-            <input type="text" id="security_q5" name="security_q5" required>
+            <input type="text" id="security_a5" name="security_a5" required>
 
             <button id="signupButton" type="submit" name="SignUP">Sign Up</button>
         </div>
