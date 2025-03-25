@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Doctor's Dashboard</title>
+    
     <style>
       * {
         margin: 0;
@@ -19,7 +19,7 @@
         height: 100vh;
       }
       .container {
-        width: 500px;
+        width: 600px;
         background: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -29,42 +29,47 @@
       h2 {
         color: #2a2a2a;
       }
-      .file-list {
+      table {
+        width: 100%;
         margin-top: 20px;
+        border-collapse: collapse;
       }
-      .file-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #e9f0ff;
+      th, td {
+        border: 1px solid #ddd;
         padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
+        text-align: left;
       }
-      .file-item a {
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
+      th {
+        background: #007bff;
+        color: white;
       }
-      .file-item button {
+      .view-button {
         padding: 5px 10px;
         background: #007bff;
         color: white;
         border: none;
         cursor: pointer;
         border-radius: 5px;
-        margin-left: 5px;
       }
-      .file-item button:hover {
+      .view-button:hover {
         background: #0056b3;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h2>Doctor's Dashboard</h2>
-      <h3>Prescriptions for Student</h3>
-      <div class="file-list" id="fileList"></div>
+      <!-- <h2>Doctor's Dashboard</h2> -->
+      <h2>Uploaded Prescriptions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Date & Time Issued</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="fileList"></tbody>
+      </table>
     </div>
 
     <script>
@@ -76,24 +81,21 @@
             fileList.innerHTML = "";
             files.forEach((file) => {
               let fileHTML = `
-                <div class="file-item">
-                  <a href="${file.file_path}" target="_blank">${file.file_name}</a>
-                  <button onclick="downloadFile('${file.file_path}', '${file.file_name}')">Download</button>
-                  <button onclick="viewFile('${file.file_path}')">View</button>
-                </div>`;
+                <tr>
+                  <td>
+                    <a href="${file.file_path}" target="_blank" title="${file.file_name}">
+                      ${file.file_name.length > 30 ? file.file_name.substring(0, 30) + '...' : file.file_name}
+                    </a>
+                  </td>
+                  <td>${new Date(file.uploaded_at).toLocaleString()}</td>
+                  <td>
+                    <button class="view-button" onclick="viewFile('${file.file_path}')">View</button>
+                  </td>
+                </tr>`;
               fileList.insertAdjacentHTML("beforeend", fileHTML);
             });
           })
           .catch((error) => console.error("Error fetching files:", error));
-      }
-
-      function downloadFile(filePath, fileName) {
-        const link = document.createElement("a");
-        link.href = filePath;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
       }
 
       function viewFile(filePath) {
